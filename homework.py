@@ -45,28 +45,26 @@ class Training:
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        speed = self.get_distance() / self.duration
+        speed: float = self.get_distance() / self.duration
         return speed
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        pass
+        raise NotImplementedError("Неизвестный вид тренировки")
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        info_message = InfoMessage(self.__class__.__name__,
-                                   self.duration,
-                                   self.get_distance(),
-                                   self.get_mean_speed(),
-                                   self.get_spent_calories()
-                                   )
-        return info_message
+        return InfoMessage(self.__class__.__name__,
+                           self.duration,
+                           self.get_distance(),
+                           self.get_mean_speed(),
+                           self.get_spent_calories())
 
 
 class Running(Training):
     """Тренировка: бег."""
-    COEFF_CAL1 = 18
-    COEFF_CAL2 = 20
+    COEFF_CAL1: int = 18
+    COEFF_CAL2: int = 20
 
     def __init__(self,
                  action: int,
@@ -108,7 +106,6 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-
     LEN_STEP: float = 1.38
     COEFF_CAL5: float = 1.1
     COEFF_CAL6: float = 2
